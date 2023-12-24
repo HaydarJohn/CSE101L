@@ -1,0 +1,7 @@
+sort array
+find array length without duplicate
+create array without duped size
+put first element of array in new array
+check all of old array if new array has same values
+if not add this element
+else continie
