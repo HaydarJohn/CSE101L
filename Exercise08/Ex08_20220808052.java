@@ -226,6 +226,75 @@ public class Ex08_20220808052{
 
 
          //take from index 0 to 8
+         File inputFile = new File(datafile);
+         try
+         {
+            int lineCount = countLinesFromFile(inputFile);
+            if(lineCount == -1)
+            {
+                throw new FileNotFoundException();
+            }
+            String[] originalData = new String[lineCount];
+            int[] baseStatsTotal = new int[lineCount];
+            int[] newLineArragmentIndex = new int[lineCount];
+            try
+            {
+                Scanner scan = new Scanner(inputFile);
+                for(int i =0;i<lineCount;i++)
+                {
+                    originalData[i] = scan.nextLine();
+                }
+                scan.close();
+                Scanner scan1 = new Scanner(inputFile);
+                for(int i =0;i<lineCount;i++)
+                {
+                    scan1.next();//Name 
+                    scan1.next();//typei
+                    scan1.next();//ytpe2
+                    int total = 0;
+                    total = scan1.nextInt() + scan1.nextInt() + scan1.nextInt() +scan1.nextInt() + scan1.nextInt()+scan1.nextInt();
+                    baseStatsTotal[i] = total;
+                }
+                scan1.close();
+                
+                for(int i =0;i<lineCount;i++)
+                {
+                    int index = 0;
+                    for(int j =0;j<lineCount;j++)
+                    {
+                        if(baseStatsTotal[index] < baseStatsTotal[j])
+                        {
+                            index = j;
+                        }
+                    }
+                    newLineArragmentIndex[i] = index;
+                    baseStatsTotal[index] = -1;
+                }
+                String[] newOrdarData = new String[lineCount];
+                for(int i =0;i<lineCount;i++)
+                {
+                    newOrdarData[i] = originalData[newLineArragmentIndex[i]];
+                }
+                //Printing
+                File outpuFile = new File(sortedfile);
+                PrintWriter printWriter = new PrintWriter(outpuFile);
+                for(int i =0;i<lineCount;i++)
+                {
+                    printWriter.println(newOrdarData[i]);
+                }
+                printWriter.close();
+
+            }
+            catch(InputMismatchException IME)
+            {
+                System.out.println(IME.getMessage());
+            }
+
+         }
+         catch (FileNotFoundException FNFE)
+         {
+            System.out.println(FNFE.getMessage());
+         }
     }
 
     // Question 5: Read and Filter Pokémon Stats Data by Type
@@ -250,6 +319,8 @@ public class Ex08_20220808052{
          */
 
          // Your code goes here...
+         return new String[] {};
+
     }
 
     // Question 6: Read and Filter Pokémon Stats Data by Highest Speed Stat
